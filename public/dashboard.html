@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SAHTCS Dashboard — Live Traffic Control</title>
+  <title>SAHTCS Dashboard — Live AI Traffic Control</title>
   <meta name="description" content="Real-time AI traffic control dashboard with intersection simulation, analytics charts, and adaptive signal management." />
 
   <link rel="stylesheet" href="css/variables.css" />
@@ -18,7 +18,10 @@
 </head>
 <body>
   <div class="dashboard">
-    <!-- ═══════════ TOP BAR ═══════════ -->
+
+    <!-- ═══════════════════════════════════
+         TOP BAR
+         ═══════════════════════════════════ -->
     <header class="dash-topbar anim-fadeInUp">
       <div class="dash-topbar-left">
         <a href="index.html" class="dash-logo">
@@ -51,301 +54,170 @@
       </div>
     </header>
 
-    <!-- ═══════════ LEFT PANEL — Controls ═══════════ -->
-    <aside class="dash-left">
-      <!-- Scenario Selector -->
-      <div class="glass-card glass-card--static anim-fadeInUp anim-fadeInUp-1">
-        <div class="card-header">
-          <h3>🎯 Demo Scenarios</h3>
+    <!-- ═══════════════════════════════════
+         SCENARIO BAR
+         ═══════════════════════════════════ -->
+    <div class="scenarios-bar anim-fadeInUp anim-fadeInUp-1">
+      <div class="scenario-grid">
+        <button class="btn-scenario" id="scenario-balanced">
+          <span class="scenario-icon">⚖️</span>
+          Balanced Flow
+          <span class="scenario-label">Equal distribution</span>
+        </button>
+        <button class="btn-scenario" id="scenario-heavy_traffic">
+          <span class="scenario-icon">🚗</span>
+          Heavy Traffic
+          <span class="scenario-label">Rush hour</span>
+        </button>
+        <button class="btn-scenario" id="scenario-pedestrian_rush">
+          <span class="scenario-icon">🚶</span>
+          Pedestrian Rush
+          <span class="scenario-label">School zone</span>
+        </button>
+        <button class="btn-scenario" id="scenario-emergency_ambulance">
+          <span class="scenario-icon">🚑</span>
+          Emergency
+          <span class="scenario-label">Ambulance</span>
+        </button>
+        <button class="btn-scenario" id="scenario-emergency_conflict">
+          <span class="scenario-icon">🚨</span>
+          Dual Emergency
+          <span class="scenario-label">Conflict</span>
+        </button>
+        <button class="btn-scenario" id="scenario-peak_hour">
+          <span class="scenario-icon">⏰</span>
+          Peak Hour
+          <span class="scenario-label">Max stress</span>
+        </button>
+        <button class="btn-scenario" id="scenario-night_mode">
+          <span class="scenario-icon">🌙</span>
+          Night Mode
+          <span class="scenario-label">Low traffic</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════
+         PERFORMANCE METRICS
+         ═══════════════════════════════════ -->
+    <div class="perf-metrics anim-fadeInUp anim-fadeInUp-2">
+      <div class="glass-card perf-metric-card">
+        <div class="metric-label">Avg Wait Time</div>
+        <div class="metric-value" style="color: var(--accent-amber);" id="metric-avg-wait">0s</div>
+      </div>
+      <div class="glass-card perf-metric-card">
+        <div class="metric-label">Vehicles Processed</div>
+        <div class="metric-value" style="color: var(--accent-blue);" id="metric-throughput">0</div>
+      </div>
+      <div class="glass-card perf-metric-card">
+        <div class="metric-label">AI Efficiency</div>
+        <div class="metric-value" style="color: var(--accent-emerald);" id="metric-efficiency">85%</div>
+      </div>
+      <div class="glass-card perf-metric-card">
+        <div class="metric-label">Decision Cycles</div>
+        <div class="metric-value" style="color: var(--accent-violet);" id="metric-cycles">0</div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════
+         HUD — Direction Status Cards
+         ═══════════════════════════════════ -->
+    <div class="hud-metrics anim-fadeInUp anim-fadeInUp-3">
+      <div class="glass-card hud-card">
+        <div class="hud-direction">
+          <span>⬆ North</span>
+          <span class="hud-signal-dot red" id="hud-signal-north"></span>
         </div>
-        <div class="card-body">
-          <div class="scenario-grid">
-            <button class="btn-scenario" id="scenario-balanced">
-              <span class="scenario-icon">⚖️</span>
-              Balanced Flow
-              <span class="scenario-label">Equal distribution</span>
-            </button>
-            <button class="btn-scenario" id="scenario-heavy_traffic">
-              <span class="scenario-icon">🚗</span>
-              Heavy Traffic
-              <span class="scenario-label">Rush hour</span>
-            </button>
-            <button class="btn-scenario" id="scenario-pedestrian_rush">
-              <span class="scenario-icon">🚶</span>
-              Pedestrian Rush
-              <span class="scenario-label">School zone</span>
-            </button>
-            <button class="btn-scenario" id="scenario-emergency_ambulance">
-              <span class="scenario-icon">🚑</span>
-              Emergency
-              <span class="scenario-label">Ambulance</span>
-            </button>
-            <button class="btn-scenario" id="scenario-emergency_conflict">
-              <span class="scenario-icon">🚨</span>
-              Dual Emergency
-              <span class="scenario-label">Conflict</span>
-            </button>
-            <button class="btn-scenario" id="scenario-peak_hour">
-              <span class="scenario-icon">⏰</span>
-              Peak Hour
-              <span class="scenario-label">Max stress</span>
-            </button>
-            <button class="btn-scenario" id="scenario-night_mode" style="grid-column: 1 / -1;">
-              <span class="scenario-icon">🌙</span>
-              Night Mode
-              <span class="scenario-label">Low traffic, energy saving</span>
-            </button>
+        <div class="hud-stats">
+          <div class="hud-stat">
+            <span class="stat-num" id="hud-north-vehicles">8</span>
+            <span class="stat-lbl">Vehicles</span>
+          </div>
+          <div class="hud-stat">
+            <span class="stat-num" id="hud-north-peds">3</span>
+            <span class="stat-lbl">Peds</span>
+          </div>
+          <div class="hud-stat">
+            <span class="stat-num" id="hud-north-emergency" style="opacity: 0.3;">—</span>
+            <span class="stat-lbl">Alert</span>
           </div>
         </div>
       </div>
 
-      <!-- Direction Controls -->
-      <div class="glass-card glass-card--static anim-fadeInUp anim-fadeInUp-2">
-        <div class="card-header">
-          <h3>🕹️ Manual Controls</h3>
+      <div class="glass-card hud-card">
+        <div class="hud-direction">
+          <span>⬇ South</span>
+          <span class="hud-signal-dot red" id="hud-signal-south"></span>
         </div>
-        <div class="card-body">
-          <div class="direction-controls">
-            <!-- North -->
-            <div class="glass-card direction-card">
-              <h4><span class="dir-dot" style="background: #0ea5e9;"></span> North</h4>
-              <div class="control-row">
-                <div class="control-label">
-                  <span>Vehicles</span>
-                  <span class="control-value" id="north-vehicles-val">8</span>
-                </div>
-                <input type="range" class="range-slider" id="north-vehicles" min="0" max="20" value="8" />
-              </div>
-              <div class="control-row">
-                <div class="control-label">
-                  <span>Pedestrians</span>
-                  <span class="control-value" id="north-pedestrians-val">3</span>
-                </div>
-                <input type="range" class="range-slider" id="north-pedestrians" min="0" max="20" value="3" />
-              </div>
-              <div class="control-row">
-                <div class="control-label"><span>Emergency</span></div>
-                <select class="select-field" id="north-emergency">
-                  <option value="none">None</option>
-                  <option value="ambulance">🚑 Ambulance</option>
-                  <option value="firetruck">🚒 Fire Truck</option>
-                  <option value="police">🚔 Police</option>
-                </select>
-              </div>
-              <div class="control-row">
-                <div class="control-label">
-                  <span>Wait Time</span>
-                  <span class="control-value" id="north-wait-val">20s</span>
-                </div>
-                <input type="range" class="range-slider" id="north-wait" min="0" max="120" value="20" />
-              </div>
-            </div>
-
-            <!-- South -->
-            <div class="glass-card direction-card">
-              <h4><span class="dir-dot" style="background: #8b5cf6;"></span> South</h4>
-              <div class="control-row">
-                <div class="control-label">
-                  <span>Vehicles</span>
-                  <span class="control-value" id="south-vehicles-val">6</span>
-                </div>
-                <input type="range" class="range-slider" id="south-vehicles" min="0" max="20" value="6" />
-              </div>
-              <div class="control-row">
-                <div class="control-label">
-                  <span>Pedestrians</span>
-                  <span class="control-value" id="south-pedestrians-val">5</span>
-                </div>
-                <input type="range" class="range-slider" id="south-pedestrians" min="0" max="20" value="5" />
-              </div>
-              <div class="control-row">
-                <div class="control-label"><span>Emergency</span></div>
-                <select class="select-field" id="south-emergency">
-                  <option value="none">None</option>
-                  <option value="ambulance">🚑 Ambulance</option>
-                  <option value="firetruck">🚒 Fire Truck</option>
-                  <option value="police">🚔 Police</option>
-                </select>
-              </div>
-              <div class="control-row">
-                <div class="control-label">
-                  <span>Wait Time</span>
-                  <span class="control-value" id="south-wait-val">25s</span>
-                </div>
-                <input type="range" class="range-slider" id="south-wait" min="0" max="120" value="25" />
-              </div>
-            </div>
-
-            <!-- East -->
-            <div class="glass-card direction-card">
-              <h4><span class="dir-dot" style="background: #f59e0b;"></span> East</h4>
-              <div class="control-row">
-                <div class="control-label">
-                  <span>Vehicles</span>
-                  <span class="control-value" id="east-vehicles-val">10</span>
-                </div>
-                <input type="range" class="range-slider" id="east-vehicles" min="0" max="20" value="10" />
-              </div>
-              <div class="control-row">
-                <div class="control-label">
-                  <span>Pedestrians</span>
-                  <span class="control-value" id="east-pedestrians-val">2</span>
-                </div>
-                <input type="range" class="range-slider" id="east-pedestrians" min="0" max="20" value="2" />
-              </div>
-              <div class="control-row">
-                <div class="control-label"><span>Emergency</span></div>
-                <select class="select-field" id="east-emergency">
-                  <option value="none">None</option>
-                  <option value="ambulance">🚑 Ambulance</option>
-                  <option value="firetruck">🚒 Fire Truck</option>
-                  <option value="police">🚔 Police</option>
-                </select>
-              </div>
-              <div class="control-row">
-                <div class="control-label">
-                  <span>Wait Time</span>
-                  <span class="control-value" id="east-wait-val">18s</span>
-                </div>
-                <input type="range" class="range-slider" id="east-wait" min="0" max="120" value="18" />
-              </div>
-            </div>
-
-            <!-- West -->
-            <div class="glass-card direction-card">
-              <h4><span class="dir-dot" style="background: #10b981;"></span> West</h4>
-              <div class="control-row">
-                <div class="control-label">
-                  <span>Vehicles</span>
-                  <span class="control-value" id="west-vehicles-val">4</span>
-                </div>
-                <input type="range" class="range-slider" id="west-vehicles" min="0" max="20" value="4" />
-              </div>
-              <div class="control-row">
-                <div class="control-label">
-                  <span>Pedestrians</span>
-                  <span class="control-value" id="west-pedestrians-val">7</span>
-                </div>
-                <input type="range" class="range-slider" id="west-pedestrians" min="0" max="20" value="7" />
-              </div>
-              <div class="control-row">
-                <div class="control-label"><span>Emergency</span></div>
-                <select class="select-field" id="west-emergency">
-                  <option value="none">None</option>
-                  <option value="ambulance">🚑 Ambulance</option>
-                  <option value="firetruck">🚒 Fire Truck</option>
-                  <option value="police">🚔 Police</option>
-                </select>
-              </div>
-              <div class="control-row">
-                <div class="control-label">
-                  <span>Wait Time</span>
-                  <span class="control-value" id="west-wait-val">30s</span>
-                </div>
-                <input type="range" class="range-slider" id="west-wait" min="0" max="120" value="30" />
-              </div>
-            </div>
+        <div class="hud-stats">
+          <div class="hud-stat">
+            <span class="stat-num" id="hud-south-vehicles">6</span>
+            <span class="stat-lbl">Vehicles</span>
           </div>
-        </div>
-      </div>
-    </aside>
-
-    <!-- ═══════════ CENTER PANEL ═══════════ -->
-    <main class="dash-center">
-      <!-- HUD Metrics -->
-      <div class="hud-metrics anim-fadeInUp anim-fadeInUp-1">
-        <div class="glass-card hud-card">
-          <div class="hud-direction">
-            <span>North</span>
-            <span class="hud-signal-dot red" id="hud-signal-north"></span>
+          <div class="hud-stat">
+            <span class="stat-num" id="hud-south-peds">5</span>
+            <span class="stat-lbl">Peds</span>
           </div>
-          <div class="hud-stats">
-            <div class="hud-stat">
-              <span class="stat-num" id="hud-north-vehicles">8</span>
-              <span class="stat-lbl">Vehicles</span>
-            </div>
-            <div class="hud-stat">
-              <span class="stat-num" id="hud-north-peds">3</span>
-              <span class="stat-lbl">Peds</span>
-            </div>
-            <div class="hud-stat">
-              <span class="stat-num" id="hud-north-emergency">—</span>
-              <span class="stat-lbl">Alert</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="glass-card hud-card">
-          <div class="hud-direction">
-            <span>South</span>
-            <span class="hud-signal-dot red" id="hud-signal-south"></span>
-          </div>
-          <div class="hud-stats">
-            <div class="hud-stat">
-              <span class="stat-num" id="hud-south-vehicles">6</span>
-              <span class="stat-lbl">Vehicles</span>
-            </div>
-            <div class="hud-stat">
-              <span class="stat-num" id="hud-south-peds">5</span>
-              <span class="stat-lbl">Peds</span>
-            </div>
-            <div class="hud-stat">
-              <span class="stat-num" id="hud-south-emergency">—</span>
-              <span class="stat-lbl">Alert</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="glass-card hud-card">
-          <div class="hud-direction">
-            <span>East</span>
-            <span class="hud-signal-dot red" id="hud-signal-east"></span>
-          </div>
-          <div class="hud-stats">
-            <div class="hud-stat">
-              <span class="stat-num" id="hud-east-vehicles">10</span>
-              <span class="stat-lbl">Vehicles</span>
-            </div>
-            <div class="hud-stat">
-              <span class="stat-num" id="hud-east-peds">2</span>
-              <span class="stat-lbl">Peds</span>
-            </div>
-            <div class="hud-stat">
-              <span class="stat-num" id="hud-east-emergency">—</span>
-              <span class="stat-lbl">Alert</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="glass-card hud-card">
-          <div class="hud-direction">
-            <span>West</span>
-            <span class="hud-signal-dot red" id="hud-signal-west"></span>
-          </div>
-          <div class="hud-stats">
-            <div class="hud-stat">
-              <span class="stat-num" id="hud-west-vehicles">4</span>
-              <span class="stat-lbl">Vehicles</span>
-            </div>
-            <div class="hud-stat">
-              <span class="stat-num" id="hud-west-peds">7</span>
-              <span class="stat-lbl">Peds</span>
-            </div>
-            <div class="hud-stat">
-              <span class="stat-num" id="hud-west-emergency">—</span>
-              <span class="stat-lbl">Alert</span>
-            </div>
+          <div class="hud-stat">
+            <span class="stat-num" id="hud-south-emergency" style="opacity: 0.3;">—</span>
+            <span class="stat-lbl">Alert</span>
           </div>
         </div>
       </div>
 
-      <!-- Intersection Visualization -->
-      <div class="glass-card glass-card--static intersection-panel anim-fadeInUp anim-fadeInUp-2">
+      <div class="glass-card hud-card">
+        <div class="hud-direction">
+          <span>➡ East</span>
+          <span class="hud-signal-dot red" id="hud-signal-east"></span>
+        </div>
+        <div class="hud-stats">
+          <div class="hud-stat">
+            <span class="stat-num" id="hud-east-vehicles">10</span>
+            <span class="stat-lbl">Vehicles</span>
+          </div>
+          <div class="hud-stat">
+            <span class="stat-num" id="hud-east-peds">2</span>
+            <span class="stat-lbl">Peds</span>
+          </div>
+          <div class="hud-stat">
+            <span class="stat-num" id="hud-east-emergency" style="opacity: 0.3;">—</span>
+            <span class="stat-lbl">Alert</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="glass-card hud-card">
+        <div class="hud-direction">
+          <span>⬅ West</span>
+          <span class="hud-signal-dot red" id="hud-signal-west"></span>
+        </div>
+        <div class="hud-stats">
+          <div class="hud-stat">
+            <span class="stat-num" id="hud-west-vehicles">4</span>
+            <span class="stat-lbl">Vehicles</span>
+          </div>
+          <div class="hud-stat">
+            <span class="stat-num" id="hud-west-peds">7</span>
+            <span class="stat-lbl">Peds</span>
+          </div>
+          <div class="hud-stat">
+            <span class="stat-num" id="hud-west-emergency" style="opacity: 0.3;">—</span>
+            <span class="stat-lbl">Alert</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════
+         MAIN: Intersection + AI Decision
+         ═══════════════════════════════════ -->
+    <div class="two-col-row anim-fadeInUp anim-fadeInUp-4">
+      <!-- Intersection -->
+      <div class="glass-card glass-card--static intersection-panel">
         <div class="card-header">
-          <h3>🛣️ Live Intersection</h3>
-          <div style="display: flex; align-items: center; gap: 8px;">
-            <span class="badge badge-green">LIVE</span>
-            <span id="narration-text" style="font-size: var(--text-xs); color: var(--text-muted); max-width: 300px; text-align: right;"></span>
+          <h3>🛣️ Live Intersection Simulation</h3>
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <span class="badge badge-green">● LIVE</span>
           </div>
         </div>
         <div class="card-body" style="padding: 12px;">
@@ -353,6 +225,12 @@
             <!-- Roads -->
             <div class="road road-vertical"></div>
             <div class="road road-horizontal"></div>
+
+            <!-- Lane markings (dashed yellow center) -->
+            <div class="lane-marking lane-marking-v-top"></div>
+            <div class="lane-marking lane-marking-v-bottom"></div>
+            <div class="lane-marking lane-marking-h-left"></div>
+            <div class="lane-marking lane-marking-h-right"></div>
 
             <!-- Center -->
             <div class="center-box"></div>
@@ -363,7 +241,7 @@
             <div class="zebra zebra-left"></div>
             <div class="zebra zebra-right"></div>
 
-            <!-- Signals -->
+            <!-- Traffic Signals -->
             <div class="signal signal-north" id="signal-north">
               <span class="lamp"></span>
               <span class="lamp"></span>
@@ -403,55 +281,299 @@
             <span class="dir-label dir-label-east">E</span>
             <span class="dir-label dir-label-west">W</span>
 
-            <!-- Green Corridor Overlays -->
+            <!-- Green Corridor -->
             <div class="green-corridor green-corridor-ns" id="corridor-ns"></div>
             <div class="green-corridor green-corridor-ew" id="corridor-ew"></div>
 
             <!-- Emergency Overlay -->
             <div class="emergency-overlay" id="emergency-overlay"></div>
           </div>
-        </div>
-      </div>
 
-      <!-- Bottom Row — Charts -->
-      <div class="bottom-row anim-fadeInUp anim-fadeInUp-3">
-        <div class="glass-card glass-card--static">
-          <div class="card-header">
-            <h3>📈 Traffic Density Over Time</h3>
-          </div>
-          <div class="card-body">
-            <div class="chart-container">
-              <canvas id="density-chart"></canvas>
-            </div>
-          </div>
-        </div>
-
-        <div class="glass-card glass-card--static">
-          <div class="card-header">
-            <h3>⏱️ Current Wait Times</h3>
-          </div>
-          <div class="card-body">
-            <div class="chart-container">
-              <canvas id="wait-chart"></canvas>
-            </div>
+          <!-- Narration bar below intersection -->
+          <div class="narration-bar" style="margin-top: 10px;">
+            <span class="narration-icon">🤖</span>
+            <span id="narration-text" style="font-style: italic;">Click a scenario or hit Run Decision to begin the simulation.</span>
           </div>
         </div>
       </div>
 
-      <!-- Second Chart Row -->
-      <div class="bottom-row anim-fadeInUp anim-fadeInUp-4">
+      <!-- AI Decision & Scores -->
+      <div style="display: flex; flex-direction: column; gap: var(--space-md);">
+        <!-- Decision Panel -->
+        <div class="glass-card glass-card--static decision-panel" style="flex: 1;">
+          <div class="card-header">
+            <h3>🧠 AI Decision Engine</h3>
+          </div>
+          <div class="card-body">
+            <div class="decision-header">
+              <div>
+                <span style="font-size: var(--text-xs); color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700;">Green Signal →</span>
+                <div class="selected-road" id="selected-road">—</div>
+              </div>
+              <div style="text-align: right;">
+                <span style="font-size: var(--text-xs); color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700;">Cycle Time</span>
+                <div>
+                  <span class="cycle-time" id="cycle-time">0</span>
+                  <span class="cycle-unit">sec</span>
+                </div>
+              </div>
+            </div>
+            <div class="decision-reason" id="decision-reason">Waiting for simulation run...</div>
+          </div>
+        </div>
+
+        <!-- Score Breakdown -->
+        <div class="glass-card glass-card--static" style="flex: 1;">
+          <div class="card-header">
+            <h3>📊 Priority Score Breakdown</h3>
+          </div>
+          <div class="card-body">
+            <div class="score-list" id="score-breakdown"></div>
+          </div>
+        </div>
+
+        <!-- Efficiency Gauge -->
         <div class="glass-card glass-card--static">
+          <div class="card-header">
+            <h3>⚡ System Efficiency</h3>
+          </div>
+          <div class="card-body">
+            <div class="efficiency-row">
+              <div class="efficiency-chart-wrap">
+                <canvas id="efficiency-chart"></canvas>
+              </div>
+              <div class="efficiency-text">
+                <div class="eff-number" id="efficiency-value">85%</div>
+                <div class="eff-label">Overall system optimization score based on throughput and wait time reduction.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════
+         CHARTS ROW
+         ═══════════════════════════════════ -->
+    <div class="two-col-row anim-fadeInUp anim-fadeInUp-5">
+      <div class="glass-card glass-card--static">
+        <div class="card-header">
+          <h3>📈 Traffic Density Over Time</h3>
+        </div>
+        <div class="card-body">
+          <div class="chart-container">
+            <canvas id="density-chart"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <div class="glass-card glass-card--static">
+        <div class="card-header">
+          <h3>⏱️ Current Wait Times</h3>
+        </div>
+        <div class="card-body">
+          <div class="chart-container">
+            <canvas id="wait-chart"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════
+         CONTROLS + PREDICTION + RL
+         ═══════════════════════════════════ -->
+    <div class="three-col-row anim-fadeInUp anim-fadeInUp-6">
+      <!-- Manual Controls -->
+      <div class="glass-card glass-card--static">
+        <div class="card-header">
+          <h3>🕹️ Manual Controls</h3>
+        </div>
+        <div class="card-body">
+          <div class="direction-controls">
+            <!-- North -->
+            <div class="glass-card direction-card">
+              <h4><span class="dir-dot" style="background: #0ea5e9;"></span> North</h4>
+              <div class="control-row">
+                <div class="control-label"><span>Vehicles</span><span class="control-value" id="north-vehicles-val">8</span></div>
+                <input type="range" class="range-slider" id="north-vehicles" min="0" max="20" value="8" />
+              </div>
+              <div class="control-row">
+                <div class="control-label"><span>Pedestrians</span><span class="control-value" id="north-pedestrians-val">3</span></div>
+                <input type="range" class="range-slider" id="north-pedestrians" min="0" max="20" value="3" />
+              </div>
+              <div class="control-row">
+                <div class="control-label"><span>Emergency</span></div>
+                <select class="select-field" id="north-emergency">
+                  <option value="none">None</option>
+                  <option value="ambulance">🚑 Ambulance</option>
+                  <option value="firetruck">🚒 Fire Truck</option>
+                  <option value="police">🚔 Police</option>
+                </select>
+              </div>
+              <div class="control-row">
+                <div class="control-label"><span>Wait Time</span><span class="control-value" id="north-wait-val">20s</span></div>
+                <input type="range" class="range-slider" id="north-wait" min="0" max="120" value="20" />
+              </div>
+            </div>
+            <!-- South -->
+            <div class="glass-card direction-card">
+              <h4><span class="dir-dot" style="background: #8b5cf6;"></span> South</h4>
+              <div class="control-row">
+                <div class="control-label"><span>Vehicles</span><span class="control-value" id="south-vehicles-val">6</span></div>
+                <input type="range" class="range-slider" id="south-vehicles" min="0" max="20" value="6" />
+              </div>
+              <div class="control-row">
+                <div class="control-label"><span>Pedestrians</span><span class="control-value" id="south-pedestrians-val">5</span></div>
+                <input type="range" class="range-slider" id="south-pedestrians" min="0" max="20" value="5" />
+              </div>
+              <div class="control-row">
+                <div class="control-label"><span>Emergency</span></div>
+                <select class="select-field" id="south-emergency">
+                  <option value="none">None</option>
+                  <option value="ambulance">🚑 Ambulance</option>
+                  <option value="firetruck">🚒 Fire Truck</option>
+                  <option value="police">🚔 Police</option>
+                </select>
+              </div>
+              <div class="control-row">
+                <div class="control-label"><span>Wait Time</span><span class="control-value" id="south-wait-val">25s</span></div>
+                <input type="range" class="range-slider" id="south-wait" min="0" max="120" value="25" />
+              </div>
+            </div>
+            <!-- East -->
+            <div class="glass-card direction-card">
+              <h4><span class="dir-dot" style="background: #f59e0b;"></span> East</h4>
+              <div class="control-row">
+                <div class="control-label"><span>Vehicles</span><span class="control-value" id="east-vehicles-val">10</span></div>
+                <input type="range" class="range-slider" id="east-vehicles" min="0" max="20" value="10" />
+              </div>
+              <div class="control-row">
+                <div class="control-label"><span>Pedestrians</span><span class="control-value" id="east-pedestrians-val">2</span></div>
+                <input type="range" class="range-slider" id="east-pedestrians" min="0" max="20" value="2" />
+              </div>
+              <div class="control-row">
+                <div class="control-label"><span>Emergency</span></div>
+                <select class="select-field" id="east-emergency">
+                  <option value="none">None</option>
+                  <option value="ambulance">🚑 Ambulance</option>
+                  <option value="firetruck">🚒 Fire Truck</option>
+                  <option value="police">🚔 Police</option>
+                </select>
+              </div>
+              <div class="control-row">
+                <div class="control-label"><span>Wait Time</span><span class="control-value" id="east-wait-val">18s</span></div>
+                <input type="range" class="range-slider" id="east-wait" min="0" max="120" value="18" />
+              </div>
+            </div>
+            <!-- West -->
+            <div class="glass-card direction-card">
+              <h4><span class="dir-dot" style="background: #10b981;"></span> West</h4>
+              <div class="control-row">
+                <div class="control-label"><span>Vehicles</span><span class="control-value" id="west-vehicles-val">4</span></div>
+                <input type="range" class="range-slider" id="west-vehicles" min="0" max="20" value="4" />
+              </div>
+              <div class="control-row">
+                <div class="control-label"><span>Pedestrians</span><span class="control-value" id="west-pedestrians-val">7</span></div>
+                <input type="range" class="range-slider" id="west-pedestrians" min="0" max="20" value="7" />
+              </div>
+              <div class="control-row">
+                <div class="control-label"><span>Emergency</span></div>
+                <select class="select-field" id="west-emergency">
+                  <option value="none">None</option>
+                  <option value="ambulance">🚑 Ambulance</option>
+                  <option value="firetruck">🚒 Fire Truck</option>
+                  <option value="police">🚔 Police</option>
+                </select>
+              </div>
+              <div class="control-row">
+                <div class="control-label"><span>Wait Time</span><span class="control-value" id="west-wait-val">30s</span></div>
+                <input type="range" class="range-slider" id="west-wait" min="0" max="120" value="30" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- AI Prediction + Distribution -->
+      <div style="display: flex; flex-direction: column; gap: var(--space-md);">
+        <div class="glass-card glass-card--static" style="flex: 1;">
+          <div class="card-header">
+            <h3>🔮 AI Traffic Prediction</h3>
+            <span class="badge badge-violet" id="pred-confidence">70%</span>
+          </div>
+          <div class="card-body">
+            <p style="font-size: var(--text-xs); color: var(--text-muted); margin-bottom: 12px;">5-minute forecast per direction (vehicles predicted):</p>
+            <div class="prediction-grid">
+              <div class="prediction-item">
+                <span class="pred-dir">⬆ North</span>
+                <span class="pred-value" id="pred-north-val">—</span>
+                <span class="pred-trend stable" id="pred-north-trend">→ Stable</span>
+              </div>
+              <div class="prediction-item">
+                <span class="pred-dir">⬇ South</span>
+                <span class="pred-value" id="pred-south-val">—</span>
+                <span class="pred-trend stable" id="pred-south-trend">→ Stable</span>
+              </div>
+              <div class="prediction-item">
+                <span class="pred-dir">➡ East</span>
+                <span class="pred-value" id="pred-east-val">—</span>
+                <span class="pred-trend stable" id="pred-east-trend">→ Stable</span>
+              </div>
+              <div class="prediction-item">
+                <span class="pred-dir">⬅ West</span>
+                <span class="pred-value" id="pred-west-val">—</span>
+                <span class="pred-trend stable" id="pred-west-trend">→ Stable</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="glass-card glass-card--static" style="flex: 1;">
           <div class="card-header">
             <h3>🥧 Traffic Distribution</h3>
           </div>
           <div class="card-body">
-            <div class="chart-container">
+            <div class="chart-container" style="height: 200px;">
               <canvas id="distribution-chart"></canvas>
             </div>
           </div>
         </div>
+      </div>
 
+      <!-- RL Learning + Heatmap + Log -->
+      <div style="display: flex; flex-direction: column; gap: var(--space-md);">
         <div class="glass-card glass-card--static">
+          <div class="card-header">
+            <h3>🤖 Reinforcement Learning</h3>
+          </div>
+          <div class="card-body">
+            <div class="weights-list">
+              <div class="weight-row">
+                <span class="weight-name">Episodes</span>
+                <span class="weight-val" id="rl-episodes">0</span>
+              </div>
+              <div class="weight-row">
+                <span class="weight-name">States Explored</span>
+                <span class="weight-val" id="rl-states">0</span>
+              </div>
+              <div class="weight-row">
+                <span class="weight-name">Avg Reward</span>
+                <span class="weight-val" id="rl-reward">0</span>
+              </div>
+              <div class="weight-row" style="border: none;">
+                <span class="weight-name">Learning Progress</span>
+                <span class="weight-val" id="rl-progress">0%</span>
+              </div>
+            </div>
+            <div style="margin-top: 12px;">
+              <div class="progress-bar">
+                <div class="progress-bar-fill" id="rl-progress-bar" style="width: 0%; background: linear-gradient(90deg, var(--accent-violet), var(--accent-blue));"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="glass-card glass-card--static" style="flex: 1;">
           <div class="card-header">
             <h3>🗺️ Density Heatmap</h3>
           </div>
@@ -461,165 +583,18 @@
             </div>
           </div>
         </div>
-      </div>
-    </main>
 
-    <!-- ═══════════ RIGHT PANEL — Decision & AI ═══════════ -->
-    <aside class="dash-right">
-      <!-- Performance Metrics -->
-      <div class="glass-card glass-card--static anim-fadeInUp anim-fadeInUp-1">
-        <div class="card-header">
-          <h3>📊 Performance</h3>
-        </div>
-        <div class="card-body" style="padding: 12px;">
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
-            <div class="metric-card glass-card" style="padding: 12px;">
-              <div class="metric-label">Avg Wait</div>
-              <div class="metric-value" style="font-size: var(--text-xl); color: var(--accent-amber);" id="metric-avg-wait">0s</div>
-            </div>
-            <div class="metric-card glass-card" style="padding: 12px;">
-              <div class="metric-label">Throughput</div>
-              <div class="metric-value" style="font-size: var(--text-xl); color: var(--accent-blue);" id="metric-throughput">0</div>
-            </div>
-            <div class="metric-card glass-card" style="padding: 12px;">
-              <div class="metric-label">Efficiency</div>
-              <div class="metric-value" style="font-size: var(--text-xl); color: var(--accent-emerald);" id="metric-efficiency">85%</div>
-            </div>
-            <div class="metric-card glass-card" style="padding: 12px;">
-              <div class="metric-label">Cycles</div>
-              <div class="metric-value" style="font-size: var(--text-xl); color: var(--accent-violet);" id="metric-cycles">0</div>
-            </div>
+        <div class="glass-card glass-card--static">
+          <div class="card-header">
+            <h3>📋 Decision Log</h3>
+          </div>
+          <div class="card-body" style="padding: 10px;">
+            <div class="log-feed" id="log-feed"></div>
           </div>
         </div>
       </div>
+    </div>
 
-      <!-- Decision Panel -->
-      <div class="glass-card glass-card--static decision-panel anim-fadeInUp anim-fadeInUp-2">
-        <div class="card-header">
-          <h3>🧠 AI Decision</h3>
-        </div>
-        <div class="card-body">
-          <div class="decision-header">
-            <div>
-              <span style="font-size: var(--text-xs); color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em;">Green Signal</span>
-              <div class="selected-road" id="selected-road">—</div>
-            </div>
-            <div style="text-align: right;">
-              <span style="font-size: var(--text-xs); color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em;">Cycle Time</span>
-              <div>
-                <span class="cycle-time" id="cycle-time">0</span>
-                <span class="cycle-unit">sec</span>
-              </div>
-            </div>
-          </div>
-          <div class="decision-reason" id="decision-reason">Waiting for simulation run...</div>
-        </div>
-      </div>
-
-      <!-- Score Breakdown -->
-      <div class="glass-card glass-card--static anim-fadeInUp anim-fadeInUp-3">
-        <div class="card-header">
-          <h3>📊 Priority Scores</h3>
-        </div>
-        <div class="card-body">
-          <div class="score-list" id="score-breakdown">
-            <!-- Populated by JS -->
-          </div>
-        </div>
-      </div>
-
-      <!-- AI Prediction -->
-      <div class="glass-card glass-card--static anim-fadeInUp anim-fadeInUp-4">
-        <div class="card-header">
-          <h3>🔮 Traffic Prediction</h3>
-          <span class="badge badge-violet" id="pred-confidence">70%</span>
-        </div>
-        <div class="card-body">
-          <div class="prediction-grid">
-            <div class="prediction-item">
-              <span class="pred-dir">North</span>
-              <span class="pred-value" id="pred-north-val">—</span>
-              <span class="pred-trend stable" id="pred-north-trend">→ Stable</span>
-            </div>
-            <div class="prediction-item">
-              <span class="pred-dir">South</span>
-              <span class="pred-value" id="pred-south-val">—</span>
-              <span class="pred-trend stable" id="pred-south-trend">→ Stable</span>
-            </div>
-            <div class="prediction-item">
-              <span class="pred-dir">East</span>
-              <span class="pred-value" id="pred-east-val">—</span>
-              <span class="pred-trend stable" id="pred-east-trend">→ Stable</span>
-            </div>
-            <div class="prediction-item">
-              <span class="pred-dir">West</span>
-              <span class="pred-value" id="pred-west-val">—</span>
-              <span class="pred-trend stable" id="pred-west-trend">→ Stable</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- RL Learning Stats -->
-      <div class="glass-card glass-card--static anim-fadeInUp anim-fadeInUp-5">
-        <div class="card-header">
-          <h3>🤖 RL Learning</h3>
-        </div>
-        <div class="card-body">
-          <div class="weights-list">
-            <div class="weight-row">
-              <span class="weight-name">Episodes</span>
-              <span class="weight-val" id="rl-episodes">0</span>
-            </div>
-            <div class="weight-row">
-              <span class="weight-name">States Explored</span>
-              <span class="weight-val" id="rl-states">0</span>
-            </div>
-            <div class="weight-row">
-              <span class="weight-name">Avg Reward</span>
-              <span class="weight-val" id="rl-reward">0</span>
-            </div>
-            <div class="weight-row">
-              <span class="weight-name">Learning Progress</span>
-              <span class="weight-val" id="rl-progress">0%</span>
-            </div>
-          </div>
-          <div style="margin-top: 12px;">
-            <div class="progress-bar">
-              <div class="progress-bar-fill" id="rl-progress-bar" style="width: 0%; background: linear-gradient(90deg, var(--accent-violet), var(--accent-blue));"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Efficiency Gauge -->
-      <div class="glass-card glass-card--static anim-fadeInUp anim-fadeInUp-6">
-        <div class="card-header">
-          <h3>⚡ System Efficiency</h3>
-        </div>
-        <div class="card-body" style="display: flex; align-items: center; gap: 16px;">
-          <div class="chart-container" style="width: 100px; height: 100px; flex-shrink: 0;">
-            <canvas id="efficiency-chart"></canvas>
-          </div>
-          <div>
-            <div style="font-size: var(--text-3xl); font-weight: 900; color: var(--accent-emerald);" id="efficiency-value">85%</div>
-            <div style="font-size: var(--text-xs); color: var(--text-muted);">Overall system performance</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Decision Log -->
-      <div class="glass-card glass-card--static anim-fadeInUp anim-fadeInUp-7">
-        <div class="card-header">
-          <h3>📋 Decision Log</h3>
-        </div>
-        <div class="card-body" style="padding: 8px;">
-          <div class="log-feed" id="log-feed">
-            <!-- Populated by JS -->
-          </div>
-        </div>
-      </div>
-    </aside>
   </div>
 
   <!-- App Entry -->
