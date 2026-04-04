@@ -1,0 +1,175 @@
+/* ============================================
+   SAHTCS — Keyframe Animations
+   ============================================ */
+
+/* ─── Signal Pulse ─── */
+@keyframes signal-pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.15); opacity: 0.85; }
+}
+
+/* ─── Glow Breathe ─── */
+@keyframes glow-breathe {
+  0%, 100% { box-shadow: 0 0 10px currentColor; }
+  50% { box-shadow: 0 0 25px currentColor, 0 0 50px currentColor; }
+}
+
+/* ─── Fade In Up ─── */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── Fade In Down ─── */
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── Fade In ─── */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ─── Scale In ─── */
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* ─── Slide In Right ─── */
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(100px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+/* ─── Slide Out Right ─── */
+@keyframes slideOutRight {
+  from { opacity: 1; transform: translateX(0); }
+  to { opacity: 0; transform: translateX(100px); }
+}
+
+/* ─── Pulse Dot ─── */
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(0.85); }
+}
+
+/* ─── Shimmer ─── */
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* ─── Count Up ─── */
+@keyframes countUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── Siren Flash ─── */
+@keyframes siren-flash {
+  0%, 100% { background: #ff4040; box-shadow: 0 0 15px rgba(255, 64, 64, 0.6); }
+  50% { background: #4060ff; box-shadow: 0 0 15px rgba(64, 96, 255, 0.6); }
+}
+
+/* ─── Vehicle Move North ─── */
+@keyframes vehicle-move-north {
+  0% { transform: translateX(-50%) translateY(0); opacity: 1; }
+  80% { opacity: 1; }
+  100% { transform: translateX(-50%) translateY(250px); opacity: 0; }
+}
+
+/* ─── Vehicle Move South ─── */
+@keyframes vehicle-move-south {
+  0% { transform: translateX(-50%) translateY(0); opacity: 1; }
+  80% { opacity: 1; }
+  100% { transform: translateX(-50%) translateY(-250px); opacity: 0; }
+}
+
+/* ─── Vehicle Move East ─── */
+@keyframes vehicle-move-east {
+  0% { transform: translateY(-50%) translateX(0); opacity: 1; }
+  80% { opacity: 1; }
+  100% { transform: translateY(-50%) translateX(-250px); opacity: 0; }
+}
+
+/* ─── Vehicle Move West ─── */
+@keyframes vehicle-move-west {
+  0% { transform: translateY(-50%) translateX(0); opacity: 1; }
+  80% { opacity: 1; }
+  100% { transform: translateY(-50%) translateX(250px); opacity: 0; }
+}
+
+/* ─── Pedestrian Walk ─── */
+@keyframes ped-walk {
+  0%, 100% { transform: translateY(0); }
+  25% { transform: translateY(-2px) rotate(-3deg); }
+  75% { transform: translateY(-2px) rotate(3deg); }
+}
+
+/* ─── Float ─── */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+/* ─── Rotate ─── */
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* ─── Gradient Flow ─── */
+@keyframes gradient-flow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* ─── Radar Sweep ─── */
+@keyframes radar-sweep {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* ─── Ripple ─── */
+@keyframes ripple {
+  0% { transform: scale(0.8); opacity: 1; }
+  100% { transform: scale(2.4); opacity: 0; }
+}
+
+/* ─── Blink ─── */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+/* ─── Emergency Bar Flash ─── */
+@keyframes emergency-bar {
+  0%, 100% { background: var(--accent-rose); }
+  50% { background: var(--accent-amber); }
+}
+
+/* ─── Staggered Entry Classes ─── */
+.anim-fadeInUp {
+  animation: fadeInUp 0.6s var(--ease-out) both;
+}
+
+.anim-fadeInUp-1 { animation-delay: 0.05s; }
+.anim-fadeInUp-2 { animation-delay: 0.10s; }
+.anim-fadeInUp-3 { animation-delay: 0.15s; }
+.anim-fadeInUp-4 { animation-delay: 0.20s; }
+.anim-fadeInUp-5 { animation-delay: 0.25s; }
+.anim-fadeInUp-6 { animation-delay: 0.30s; }
+.anim-fadeInUp-7 { animation-delay: 0.35s; }
+.anim-fadeInUp-8 { animation-delay: 0.40s; }
+
+.anim-scaleIn {
+  animation: scaleIn 0.5s var(--ease-out) both;
+}
+
+.anim-fadeIn {
+  animation: fadeIn 0.4s var(--ease-out) both;
+}

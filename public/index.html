@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SAHTCS — Smart Traffic Signal System | AI-Powered Intersection Management</title>
+  <meta name="description" content="Human-Aware Smart Traffic Signal System — AI-powered adaptive intersection management with real-time density detection, pedestrian prioritization, and emergency vehicle override." />
+
+  <link rel="stylesheet" href="css/variables.css" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+  <link rel="stylesheet" href="css/landing.css" />
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="landing-nav">
+    <div class="nav-logo">
+      <div class="logo-icon">🚦</div>
+      <span>SAHTCS</span>
+    </div>
+    <div class="nav-links">
+      <a href="#features">Features</a>
+      <a href="#how-it-works">How It Works</a>
+      <a href="#demo">Demo</a>
+      <a href="dashboard.html" class="btn btn-primary btn-sm">Open Dashboard →</a>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero" id="hero">
+    <div class="hero-bg">
+      <div class="hero-grid"></div>
+    </div>
+
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span class="pulse"></span>
+        AI-Powered Traffic Intelligence
+      </div>
+
+      <h1>
+        The Future of<br />
+        <span class="highlight">Smart Intersections</span>
+      </h1>
+
+      <p class="hero-subtitle">
+        An adaptive, human-aware traffic signal system that uses reinforcement learning,
+        real-time density detection, and predictive analytics to optimize traffic flow,
+        protect pedestrians, and clear emergency corridors — automatically.
+      </p>
+
+      <div class="hero-actions">
+        <a href="dashboard.html" class="btn btn-primary">Launch Dashboard →</a>
+        <a href="#features" class="btn btn-ghost">Explore Features</a>
+      </div>
+
+      <!-- Stats Strip -->
+      <div class="stats-strip">
+        <div class="stat-item">
+          <div class="stat-value" id="stat-vehicles">12,847</div>
+          <div class="stat-label">Vehicles Managed</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value" id="stat-efficiency">94%</div>
+          <div class="stat-label">Flow Efficiency</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value" id="stat-response">&lt;2s</div>
+          <div class="stat-label">Emergency Response</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value" id="stat-reduction">38%</div>
+          <div class="stat-label">Wait Time Reduction</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features-section" id="features">
+    <div class="container">
+      <div class="section-header">
+        <h2>Intelligent Traffic <span class="text-gradient">Management</span></h2>
+        <p>Six core capabilities that make SAHTCS the most advanced traffic signal system.</p>
+      </div>
+
+      <div class="features-grid">
+        <div class="glass-card feature-card anim-fadeInUp anim-fadeInUp-1">
+          <div class="feature-icon blue">🧠</div>
+          <h3>Adaptive AI Engine</h3>
+          <p>Multi-factor priority scoring with starvation prevention, fairness weighting, and time-of-day awareness. Makes smarter decisions with each cycle.</p>
+        </div>
+
+        <div class="glass-card feature-card anim-fadeInUp anim-fadeInUp-2">
+          <div class="feature-icon emerald">🚶</div>
+          <h3>Pedestrian Protection</h3>
+          <p>Dedicated crossing phases with group dynamics modeling, urgency-based timing, and realistic crosswalk simulation for maximum safety.</p>
+        </div>
+
+        <div class="glass-card feature-card anim-fadeInUp anim-fadeInUp-3">
+          <div class="feature-icon rose">🚑</div>
+          <h3>Emergency Override</h3>
+          <p>Instant green corridor activation for ambulances, fire trucks, and police vehicles with intelligent conflict resolution when multiple emergencies clash.</p>
+        </div>
+
+        <div class="glass-card feature-card anim-fadeInUp anim-fadeInUp-4">
+          <div class="feature-icon amber">📊</div>
+          <h3>Real-Time Analytics</h3>
+          <p>Live traffic density charts, waiting time analysis, throughput metrics, and efficiency gauges — all updating in real-time on a professional dashboard.</p>
+        </div>
+
+        <div class="glass-card feature-card anim-fadeInUp anim-fadeInUp-5">
+          <div class="feature-icon violet">🤖</div>
+          <h3>Reinforcement Learning</h3>
+          <p>Q-Learning based optimization that adapts signal weights over time, improving decision quality with every cycle. Watch the AI learn in real-time.</p>
+        </div>
+
+        <div class="glass-card feature-card anim-fadeInUp anim-fadeInUp-6">
+          <div class="feature-icon cyan">🔮</div>
+          <h3>Traffic Prediction</h3>
+          <p>5-minute traffic flow forecasting using weighted moving averages and trend analysis. Plan ahead with congestion probability indicators.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works -->
+  <section class="features-section" id="how-it-works" style="padding-top: 20px;">
+    <div class="container">
+      <div class="section-header">
+        <h2>How SAHTCS <span class="text-gradient-emerald">Works</span></h2>
+        <p>A 4-step intelligent decision loop running every signal cycle.</p>
+      </div>
+
+      <div class="features-grid" style="grid-template-columns: repeat(4, 1fr);">
+        <div class="glass-card feature-card">
+          <div class="feature-icon blue" style="font-size: 1.2rem;">1️⃣</div>
+          <h3>Sense</h3>
+          <p>Detects vehicle density, pedestrian count, emergency vehicles, and waiting time from all four directions simultaneously.</p>
+        </div>
+
+        <div class="glass-card feature-card">
+          <div class="feature-icon emerald" style="font-size: 1.2rem;">2️⃣</div>
+          <h3>Analyze</h3>
+          <p>Multi-factor priority algorithm scores each direction considering density, urgency, fairness, starvation, and emergency status.</p>
+        </div>
+
+        <div class="glass-card feature-card">
+          <div class="feature-icon amber" style="font-size: 1.2rem;">3️⃣</div>
+          <h3>Decide</h3>
+          <p>AI selects the optimal signal phase with adaptive cycle timing, enhanced by RL modifiers and predictive adjustments.</p>
+        </div>
+
+        <div class="glass-card feature-card">
+          <div class="feature-icon violet" style="font-size: 1.2rem;">4️⃣</div>
+          <h3>Learn</h3>
+          <p>Q-Learning updates weights based on outcomes, continuously improving future decisions. The system gets smarter over time.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-section" id="demo">
+    <div class="cta-box glass-card" style="background: linear-gradient(135deg, rgba(14, 165, 233, 0.08), rgba(139, 92, 246, 0.05)); transform: none;">
+      <h2>Ready to See It In Action?</h2>
+      <p>Launch the interactive dashboard and run real-time traffic simulations with AI-powered decision making.</p>
+      <a href="dashboard.html" class="btn btn-primary" style="padding: 16px 40px; font-size: 1rem;">
+        Launch Live Dashboard →
+      </a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="landing-footer">
+    <p>SAHTCS — Human-Aware Smart Traffic Signal System • Built with AI & 🧠</p>
+  </footer>
+
+  <script>
+    // Animated stat counter
+    function animateCounter(elementId, target, suffix = '') {
+      const el = document.getElementById(elementId);
+      if (!el) return;
+      const duration = 2000;
+      const step = 16;
+      const steps = duration / step;
+
+      // Parse target
+      let numTarget = parseInt(target.replace(/[^0-9]/g, ''));
+      let current = 0;
+      const increment = numTarget / steps;
+
+      const timer = setInterval(() => {
+        current += increment;
+        if (current >= numTarget) {
+          el.textContent = target;
+          clearInterval(timer);
+        } else {
+          el.textContent = Math.floor(current).toLocaleString() + suffix;
+        }
+      }, step);
+    }
+
+    // Start animations when hero is visible
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          animateCounter('stat-vehicles', '12,847');
+          animateCounter('stat-efficiency', '94%');
+          animateCounter('stat-response', '<2s');
+          animateCounter('stat-reduction', '38%');
+          observer.disconnect();
+        }
+      });
+    });
+
+    const statsEl = document.querySelector('.stats-strip');
+    if (statsEl) observer.observe(statsEl);
+  </script>
+</body>
+</html>
